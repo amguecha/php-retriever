@@ -55,7 +55,7 @@ php-retriever-main
 	└── uploads 
 	      └── test-image.png 
 
-### 1. INSTALLATION INSTRUCTIONS.
+### 1. INSTALLATION INSTRUCTIONS FOR TESTING LOCALLY.
 
 This framework needs at least an Apache server configured with PHP 7.3+ and Mysql.
 
@@ -158,12 +158,12 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 This program bundles the following third-party resources:
 
-	Bootstrap front-end toolkit, and Bootstrap icon library.
+	Bootstrap front-end toolkit.
 	Copyright (c) 2011-2021 The Bootstrap Authors, 2011-2021 Twitter, Inc.
 	License: The MIT License (MIT).
 	Source: https://github.com/twbs/bootstrap
 
-	Bootstrap front-end toolkit, and Bootstrap icon library.
+	Bootstrap icon library.
 	Copyright (c) 2011-2021 The Bootstrap Authors, 2011-2021 Twitter, Inc.
 	License: The MIT License (MIT).
 	Source: https://github.com/twbs/icons
