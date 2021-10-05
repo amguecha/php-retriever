@@ -1,0 +1,38 @@
+# Checking if mod_rewrite module is enabled. 
+# 
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Redirecting all requests for files (f) 
+    # and directories (d) to index.php (router) if 
+    # they don't exist in public_html.
+    # 
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*) index.php
+
+    # Forcing secure load via https.
+    # 
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+</IfModule>
+
+# Enable cache for static content.
+#
+<IfModule mod_expires.c>
+    ExpiresActive on
+    ExpiresByType text/css                  "access plus 1 year"
+    ExpiresByType application/javascript    "access plus 1 year"
+    ExpiresByType image/gif                 "access plus 1 month"
+    ExpiresDefault                          "access plus 1 month"
+</IfModule>
+
+# Disable directory browsing, just in case.
+#
+Options -Indexes
+
+# Redirect attemps to access 'forbidden' public files 
+# and folders to '/', allowing the router
+# to handle the request, playing guessing game??
+#
+ErrorDocument 403 / 
