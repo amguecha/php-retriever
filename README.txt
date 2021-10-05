@@ -55,7 +55,7 @@ php-retriever-main
 	└── uploads 
 	      └── test-image.png 
 
-### 1. INSTALLATION INSTRUCTIONS FOR TESTING LOCALLY.
+### 1. INSTALLATION INSTRUCTIONS FOR TESTING IN LOCALHOST.
 
 This framework needs at least an Apache server configured with PHP 7.3+ and Mysql.
 
