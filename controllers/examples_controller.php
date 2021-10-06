@@ -456,7 +456,7 @@ class examples_controller
 		if( isset($_GET['remove_filename']) && !empty($_GET['remove_filename'])) {
 			$file_location = ROOT . 'public_html/uploads/' . $_GET['remove_filename'];
 			unlink($file_location);
-			header("Location: " . DOMAIN . '/examples/files');
+			header("Location: " . DOMAIN . '/examples/files?' . 'deleted=' . $_GET['remove_filename']);
 		}
 
 		/** Setting up 'files.php' as view and storing variables for later use in view */
