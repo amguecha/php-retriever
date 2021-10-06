@@ -513,6 +513,7 @@ class examples_controller
     /** Method assign data to a view 'cookie.php' and render it */
     public function cookie()
     {
+	session_start();
     	/** Assigning $_COOKIE to a varaible if it is set */
 		if( isset($_COOKIE['data']) ){
 			$cookie = $_COOKIE['data'];
@@ -537,6 +538,7 @@ class examples_controller
     /** Operations to set a cookie */
     public function set_cookie()
     {
+	session_start();
     	/** Creating the string that will be stored in $_COOKIE */
     	$cookie_value = "<p><b>Hey! I'm a stored cookie variable!</b></p>";
 
@@ -599,7 +601,11 @@ class examples_controller
     /** Operations to unset a cookie */
     public function remove_cookie()
     {
-		setcookie( 'data', '', [
+	session_start();
+    	/** Creating the string that will be stored in $_COOKIE */
+    	$cookie_value = "";
+	    
+		setcookie( 'data', $cookie_value, [
 		    'expires' => ( time() - (60*60*24*365) ),
 		    'path' => '/examples/cookie',
 		    'domain' => false,
