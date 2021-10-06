@@ -550,10 +550,10 @@
 		<!-- Collapse effect on areas. -->
 		<p><b>COLLAPSE AREA</b></p>
 		<p>
-			<a class="btn btn-primary mb-1" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+			<a class="btn btn-primary mb-2" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
 				Link with href
 			</a>
-			<button class="btn btn-primary mb-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+			<button class="btn btn-primary mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
 				Button with data-bs-target
 			</button>
 		</p>
@@ -937,10 +937,7 @@
 				<a class="nav-link active" aria-current="page" href="#">Active</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">Much longer nav link</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="#">Link</a>
+				<a class="nav-link" href="#">Longer link</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link disabled">Disabled</a>
@@ -964,9 +961,6 @@
 					</li>
 					<li><a class="dropdown-item" href="#">Separated link</a></li>
 				</ul>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="#">Link</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link disabled">Disabled</a>
@@ -993,9 +987,6 @@
 				</ul>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">Link</a>
-			</li>
-			<li class="nav-item">
 				<a class="nav-link disabled">Disabled</a>
 			</li>
 		</ul>
@@ -1005,8 +996,8 @@
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<div class="container-fluid">
 				<a class="navbar-brand" href="#">
-					<img src="http://localhost:8080/uploads/test-image.png" width="24" height="24" class="d-inline-block align-text-top">
-					Default Navigation Bar
+					<img src="<?= DOMAIN ?>/uploads/test-image.png" width="24" height="24" class="d-inline-block align-text-top">
+					Default Nav Bar
 				</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
@@ -1047,8 +1038,8 @@
 		<nav class="navbar navbar-light bg-light">
 			<div class="container-fluid">
 				<a class="navbar-brand" href="#">
-					<img src="http://localhost:8080/uploads/test-image.png" width="24" height="24" class="d-inline-block align-text-top">
-					Offcanvas Navigation Bar
+					<img src="<?= DOMAIN ?>/uploads/test-image.png" width="24" height="24" class="d-inline-block align-text-top">
+					Offcanvas Nav Bar
 				</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
 					<span class="navbar-toggler-icon"></span>
@@ -1091,10 +1082,10 @@
 		<hr>
 		<!-- Offcanvas content. -->
 		<p><b>OFFCANVAS CONTENT</b></p>
-		<a class="btn btn-primary mb-1" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+		<a class="btn btn-primary mb-2" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
 			Link with href
 		</a>
-		<button class="btn btn-primary mb-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+		<button class="btn btn-primary mb-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
 			Button with data-bs-target
 		</button>
 		<br>
@@ -1123,7 +1114,7 @@
 		<!-- Pagination liks. -->
 		<p><b>PAGINATION</b></p>
 		<nav aria-label="Page navigation example">
-			<ul class="pagination">
+			<ul class="pagination mb-2">
 				<li class="page-item disabled">
 					<a class="page-link">Previous</a>
 				</li>
@@ -1138,7 +1129,7 @@
 			</ul>
 		</nav>
 		<nav aria-label="...">
-			<ul class="pagination pagination-lg">
+			<ul class="pagination pagination-lg mb-2">
 				<li class="page-item active" aria-current="page">
 					<span class="page-link">1</span>
 				</li>
@@ -1147,7 +1138,7 @@
 			</ul>
 		</nav>
 		<nav aria-label="Page navigation example">
-			<ul class="pagination">
+			<ul class="pagination mb-2">
 				<li class="page-item">
 					<a class="page-link" href="#" aria-label="Previous">
 						<span aria-hidden="true">&laquo;</span>
@@ -1164,7 +1155,7 @@
 			</ul>
 		</nav>
 		<nav aria-label="...">
-			<ul class="pagination pagination-sm">
+			<ul class="pagination pagination-sm mb-2">
 				<li class="page-item active" aria-current="page">
 					<span class="page-link">1</span>
 				</li>
@@ -1245,19 +1236,19 @@
 		<span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Disabled popover">
 			<button class="btn btn-primary" type="button" disabled>Disabled button</button>
 		</span>
-		<p class="mb-3"></p>
+		<p class="mb-2"></p>
 		<button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" title="Popover title" data-bs-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>
-		<p class="mb-3"></p>
-		<button type="button" class="btn btn-secondary mb-1" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
+		<p class="mb-2"></p>
+		<button type="button" class="btn btn-secondary mb-2" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
 			Popover on top
 		</button>
-		<button type="button" class="btn btn-secondary mb-1" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="Right popover">
+		<button type="button" class="btn btn-secondary mb-2" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="Right popover">
 			Popover on right
 		</button>
-		<button type="button" class="btn btn-secondary mb-1" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Bottom popover">
+		<button type="button" class="btn btn-secondary mb-2" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Bottom popover">
 			Popover on bottom
 		</button>
-		<button type="button" class="btn btn-secondary mb-1" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="Left popover">
+		<button type="button" class="btn btn-secondary mb-2" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="Left popover">
 			Popover on left
 		</button>
 		<br>
@@ -1273,35 +1264,35 @@
 		<div class="progress" style="height: 1px;">
 			<div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
 		</div>
-		<br>
+		<p class="mb-3"></p>
 		<div class="progress" style="height: 20px;">
 			<div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
 		</div>
-		<br>
+		<p class="mb-3"></p>
 		<div class="progress">
 			<div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
 		</div>
-		<br>
+		<p class="mb-3"></p>
 		<div class="progress">
 			<div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
 		</div>
-		<br>
+		<p class="mb-3"></p>
 		<div class="progress">
 			<div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
 		</div>
-		<br>
+		<p class="mb-3"></p>
 		<div class="progress">
 			<div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
 		</div>
-		<br>
+		<p class="mb-3"></p>
 		<div class="progress">
 			<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
 		</div>
-		<br>
+		<p class="mb-3"></p>
 		<div class="progress">
 			<div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
 		</div>
-		<br>
+		<p class="mb-3"></p>
 		<div class="progress">
 			<div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
 		</div>
@@ -1395,7 +1386,7 @@
 		<div class="spinner-border text-light" role="status">
 			<span class="visually-hidden">Loading...</span>
 		</div>
-		<br class="mb-1">
+		<p class="mb-2"></p>
 		<div class="spinner-grow text-primary" role="status">
 			<span class="visually-hidden">Loading...</span>
 		</div>
@@ -1420,12 +1411,12 @@
 		<div class="spinner-grow text-light" role="status">
 			<span class="visually-hidden">Loading...</span>
 		</div>
-		<br class="mb-1">
+		<p class="mb-2"></p>
 		<button class="btn btn-primary" type="button" disabled>
 			<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
 			Loading...
 		</button>
-		<div class="mb-1"></div>
+		<p class="mb-2"></p>
 		<button class="btn btn-primary" type="button" disabled>
 			<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
 			Loading...
@@ -1456,7 +1447,7 @@
 		<p><b>TOASTS</b></p>
 		<button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button>
 		<div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
-			<div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+			<div id="liveToast" class="toast w-100" role="alert" aria-live="assertive" aria-atomic="true">
 				<div class="toast-header">
 					<svg class="bd-placeholder-img rounded me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
 						<rect width="100%" height="100%" fill="#007aff"></rect>
