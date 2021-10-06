@@ -1,7 +1,7 @@
 ### PHP-RETRIEVER | SIMPLE MVC FRONT CONTROLLER PHP MINI-FRAMEWORK
 
 Contributors: Amaro Guerra Rocha
-Requires at least: PHP 7.3+
+Requires at least: PHP 7.3
 Version: 0.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
@@ -57,7 +57,7 @@ php-retriever-main
 
 ### 1. INSTALLATION INSTRUCTIONS FOR TESTING IN LOCALHOST.
 
-This framework needs at least an Apache server configured with PHP 7.3+ and Mysql.
+This framework needs at least an Apache server configured with PHP 7.3 and Mysql.
 
 Unpack the file in your Apache server's directory. Make sure the 'public_html' folder
 is the only one with public access. 
