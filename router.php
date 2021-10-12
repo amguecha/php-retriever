@@ -15,8 +15,8 @@ class router
 	static function start()
 	{
 		/** Sending response headers first. Add more here if needed. */
-		header("strict-transport-security: max-age=".configuration::HSTS);
-		header("x-frame-options:".configuration::XFO);
+		header('strict-transport-security: max-age=' . configuration::HSTS);
+		header('x-frame-options:' . configuration::XFO);
 
 		/** Number of section delimiters '/' in URL */
 		$uriSections = substr_count($_SERVER['REQUEST_URI'], '/');
@@ -100,7 +100,7 @@ class router
 		}
 
 		/** 
-		* Using the function'method_exists' in the previous check  
+		* Using the function 'method_exists' in the previous check  
 		* will include the file automatically, this is a 
 		* fallback call, just in case. 
 		* 
