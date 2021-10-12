@@ -59,7 +59,7 @@ class retriever
 	        	include( $model_path );
 	        }else{
 				http_response_code(404);
-				trigger_error( 'There was a problem loading the intended model. Message generated' );
+				trigger_error( 'There was a problem loading the intended model. Message generated ' );
 				exit();
 	        }
 
@@ -70,12 +70,12 @@ class retriever
 	        	$this->file = $filename;
 	        }else{
 				http_response_code(404);
-				trigger_error( 'There was a problem loading the intended view. Message generated' );
+				trigger_error( 'There was a problem loading the intended view. Message generated ' );
 				exit();
 	        }
 		}else{
 			http_response_code(404);
-			trigger_error( 'There was a problem loading the intended view or model. Message generated' );
+			trigger_error( 'There was a problem loading the intended view or model. Message generated ' );
 			exit();
 		}
 
@@ -92,7 +92,7 @@ class retriever
 	public function include_data( $dataset = [] )
 	{
 		if( $this->type == 'model_type' ){
-			trigger_error( 'Models do not accept this method. Message generated' );
+			trigger_error( 'Models do not accept this method. Message generated ' );
 		}elseif( $this->type = 'view_type' ) {
 			$this->data = $dataset;
 		}
@@ -115,11 +115,11 @@ class retriever
 	        if( class_exists($class) ){
 	        	return new $class( $params );
 	        }else{
-	        	trigger_error( 'Model classname or filename is incorrect. Message generated' );
+	        	trigger_error( 'Model classname or filename is incorrect. Message generated ' );
 	        }
 
 		}elseif( $this->type == 'model_view' ){
-			trigger_error( 'This object can only include models. Message generated' );
+			trigger_error( 'This object can only include models. Message generated ' );
 		}
 	}
 
@@ -152,7 +152,7 @@ class retriever
 			ob_end_flush();
 			
         }else{
-        	trigger_error( 'This object was not able to render the view. Message generated' );
+        	trigger_error( 'This object was not able to render the view. Message generated ' );
         }
 	}
 }
