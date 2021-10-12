@@ -7,7 +7,7 @@
  * 'include' and 'new class' operations.
  * 
  * @property: $type -> It stores the type of operation
- *            tha will be done by the object.                 
+ *            that will be done by the object.                 
  * @property: $file -> It stores the filename that will 
  *            be used to perform operations.
  * @property: $data -> It stores data that will be passed 
