@@ -19,7 +19,7 @@ $modules = [ ROOT, VIEWS, MODELS, CONTROLLERS ];
 set_include_path( get_include_path() . PATH_SEPARATOR . implode( PATH_SEPARATOR, $modules ) );
 
 /** Setting up autoloader. */
-spl_autoload_register('spl_autoload', false);
+spl_autoload_register('spl_autoload');
 
 /** Basic context constants. Check configuration.php */
 define('DBHOST', configuration::DBHOST );
