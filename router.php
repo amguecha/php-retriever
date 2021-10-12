@@ -39,27 +39,27 @@
 				$request = str_replace( $replace, '/', $_SERVER['REQUEST_URI']);
 				$uri = explode( '/', $request );
 
-				/** Filter 1: URL looks like: domain/a/b/ */
+				/** Filter 1: URL looks like: www.domain.com/a/b/ */
 				if( $uriSections == 3 && !empty($uri[1]) && !empty($uri[2]) && empty($uri[3]) ){
 					$controllerName = $uri[1] . '_controller';
 					$actionName = $uri[2];
 				}
-				/** Filter 2: URL looks like: domain/a/b */
+				/** Filter 2: URL looks like: www.domain.com/a/b */
 				elseif( $uriSections == 2 && !empty($uri[1]) && !empty($uri[2])  ){
 					$controllerName = $uri[1] . '_controller';
 					$actionName = $uri[2];
 				}
-				/** Filter 3: URL looks like: domain/a/ */
+				/** Filter 3: URL looks like: www.domain.com/a/ */
 				elseif( $uriSections == 2 && !empty($uri[1]) && empty($uri[2])){
 					$controllerName = configuration::DEFAULT_CONTROLLER;
 					$actionName = $uri[1];
 				}
-				/** Filter 4: URL looks like: domain/a */
+				/** Filter 4: URL looks like: www.domain.com/a */
 				elseif( $uriSections == 1 && !empty($uri[1]) ){
 					$controllerName = configuration::DEFAULT_CONTROLLER;
 					$actionName = $uri[1];
 				}
-				/** Filter 5 (DEFAULT): URL looks like: domain/ */
+				/** Filter 5 (DEFAULT): URL looks like: www.domain.com/ */
 				elseif( $uriSections == 1 && empty($uri[1]) ){
 					$controllerName = configuration::DEFAULT_CONTROLLER;
 					$actionName = configuration::DEFAULT_ACTION;
@@ -100,9 +100,9 @@
 			}
 
 			/** 
-			* Calling 'method_exists' in the previous check  
+			* Using the function'method_exists' in the previous check  
 			* will include the file automatically, this is a 
-			* fallback call, in case. 
+			* fallback call, just in case. 
 			* 
 			*/	
 			include_once($controllerPath);
