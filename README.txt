@@ -57,7 +57,7 @@ php-retriever-main
 
 ### 1. INSTALLATION INSTRUCTIONS FOR TESTING IN LOCALHOST.
 
-This framework needs at least an Apache server configured with PHP 7.3 and Mysql.
+This framework needs at least an Apache server configured with PHP 7.3+ and Mysql.
 
 Unpack the file in your Apache server's directory. Make sure the 'public_html' folder
 is the only one with public access. 
@@ -65,12 +65,12 @@ is the only one with public access.
 Configure the required global constants that are placed in '/configration.php', 
 to match your installation, domain, server setup and database credential names.
 
-Create a new database in mysql. 
+A Mysql database is required for this framework.
 
-In Linux, you can run log in with this command:
+In Linux, you can start Mysql with this log in command:
 	$ mysql -u root -p
 
-Create the database and a testing table:
+Then, create the database and a testing table:
 	> CREATE DATABASE IF NOT EXISTS php_retriever_main;
 	> USE php_retriever_main;
 	> CREATE TABLE IF NOT EXISTS crud (id int NOT NULL, title text NOT NULL, description text NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -103,7 +103,8 @@ methods of each controller. When loading files, the complete name and
 extension must be given.
 
 Once all is set up, open your terminal, go to 'public_html' folder, 
-and run a PHP server on a free port to start exploring. 
+and run a PHP server on a free port to start exploring.
+
 In Linux, you can run these commands: 
 	$ cd /var/www/html/php-retriever-main/public_html/
 	$ php -S localhost:8080
@@ -114,22 +115,22 @@ a) Bootstrap CSS and JS v5.1.1
 b) Bootstrap Icons v1.5.0
 d) Example content (it can be removed):
 	d.1) in views:
-			bootstrapicons.php
-			components.php
-			content.php
-			cookie.php
-			database.php
-			files.php
-			get.php
-			page.php
-			post.php
-			session.php
+		bootstrapicons.php
+		components.php
+		content.php
+		cookie.php
+		database.php
+		files.php
+		get.php
+		page.php
+		post.php
+		session.php
 	d.2) in models:
-			examples_model.php
+		examples_model.php
 	d.3) in controllers:
-			examples_controller.php
+		examples_controller.php
 	d.4) in public_html:
-			/uploads (and its content)
+		/uploads (and its content)
 
 ### 4. CLEANUP TESTING CONTENT.
 
