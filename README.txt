@@ -13,7 +13,8 @@ php-retriever-main
 |
 ├── configuration.php 
 ├── database.php 
-├── README.md 
+├── LICENSE.txt 
+├── README.txt 
 ├── retriever.php 
 ├── router.php 
 |
