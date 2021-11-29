@@ -24,7 +24,7 @@
 			php-retriever
 		</h1>
 		<p class="py-2 text-center mx-3">
-			Simple MVC front controller PHP mini-framework (v0.2)
+			Simple MVC Front Controller Mini Framework (v.0.2)
 		</p>
 		<nav class="nav justify-content-center mx-3">
 			<div id="buttons-group" class="btn-group">
