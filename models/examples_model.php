@@ -7,11 +7,11 @@
  * 
  * @param: $conn -> Connection to DB.
  * 
- * @method: __construct() -> Line 21 
- * @method: create( $title, $description ) -> Line 35
- * @method: read() -> Line 50 
+ * @method: __construct()                       -> Line 21 
+ * @method: create( $title, $description )      -> Line 35
+ * @method: read()                              -> Line 50 
  * @method: upload( $id, $title, $description ) -> Line 68
- * @method: delete( $id ) -> Line 84  
+ * @method: delete( $id )                       -> Line 84  
  * 
  */
 class examples_model
@@ -32,12 +32,12 @@ class examples_model
      * @param: $description -> Input description.
      *
      */
-    public function create( $title, $description )
+    public function create($title, $description)
     {
-    	$sql = "INSERT INTO crud VALUES( NULL, :title, :description )";
-        $this->conn->query( $sql );
-        $this->conn->bind( ':title', $title );
-        $this->conn->bind( ':description', $description );
+        $sql = "INSERT INTO crud VALUES( NULL, :title, :description )";
+        $this->conn->query($sql);
+        $this->conn->bind(':title', $title);
+        $this->conn->bind(':description', $description);
         $this->conn->execute();
     }
 
@@ -50,7 +50,7 @@ class examples_model
     public function read()
     {
         $sql = "SELECT * FROM crud";
-        $this->conn->query( $sql );
+        $this->conn->query($sql);
         $rows = $this->conn->fetch_all();
         return $rows;
     }
@@ -65,13 +65,13 @@ class examples_model
      * @param: $description -> The new description.
      *
      */
-    public function update( $id, $title, $description )
+    public function update($id, $title, $description)
     {
-    	$sql = "UPDATE crud SET title = :title, description = :description WHERE id = :id";
-        $this->conn->query( $sql );
-        $this->conn->bind( ':id', $id );
-        $this->conn->bind( ':title', $title );
-        $this->conn->bind( ':description', $description );
+        $sql = "UPDATE crud SET title = :title, description = :description WHERE id = :id";
+        $this->conn->query($sql);
+        $this->conn->bind(':id', $id);
+        $this->conn->bind(':title', $title);
+        $this->conn->bind(':description', $description);
         $this->conn->execute();
     }
 
@@ -81,25 +81,23 @@ class examples_model
      * @param: $id -> Pointer to select the record.
      *
      */
-    public function delete( $id )
+    public function delete($id)
     {
         $sql = "DELETE FROM crud WHERE id = :id";
-        $this->conn->query( $sql );
-        $this->conn->bind( ':id', $id );
+        $this->conn->query($sql);
+        $this->conn->bind(':id', $id);
         $this->conn->execute();
     }
 
     /**
-     * Example model. Models are meant to 
+     * Example model methohd. Models are meant to 
      * deal mainly with database operations
      * or complex logic.
      * 
      */
     public function page()
     {
-    	$hello = 'Hi from the model !!!';
+        $hello = 'Hi from the model !!!';
         return $hello;
     }
 }
-
-?>

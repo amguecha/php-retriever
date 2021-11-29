@@ -1317,6 +1317,7 @@
 				border-left-width: medium;
 				border-width: 1px 0 0;
 			}
+
 			.bd-example-to-scroll {
 				padding: 1.5rem;
 				margin-right: 0;
@@ -1324,6 +1325,7 @@
 				border-width: 1px;
 				border-radius: .25rem;
 			}
+
 			.scrollspy-example {
 				position: relative;
 				height: 9.5rem;

@@ -24,7 +24,7 @@
 			php-retriever
 		</h1>
 		<p class="py-2 text-center mx-3">
-			Simple MVC front controller PHP mini-framework (v0.1)
+			Simple MVC front controller PHP mini-framework (v0.2)
 		</p>
 		<nav class="nav justify-content-center mx-3">
 			<div id="buttons-group" class="btn-group">
@@ -36,19 +36,19 @@
 	</div>
 	<script>
 		var currentWidth = window.innerWidth;
-		if( currentWidth < 480 ){
+		if (currentWidth < 480) {
 			document.getElementById('buttons-group').classList.remove('btn-group');
 			document.getElementById('buttons-group').classList.add('btn-group-vertical');
-		}else if( currentWidth > 480 ){
+		} else if (currentWidth > 480) {
 			document.getElementById('buttons-group').classList.remove('btn-group-vertical');
 			document.getElementById('buttons-group').classList.add('btn-group');
 		};
-		window.addEventListener('resize', function(event){
+		window.addEventListener('resize', function(event) {
 			var newWidth = window.innerWidth;
-			if( newWidth < 480 ){
+			if (newWidth < 480) {
 				document.getElementById('buttons-group').classList.remove('btn-group');
 				document.getElementById('buttons-group').classList.add('btn-group-vertical');
-			}else if( newWidth > 480 ){
+			} else if (newWidth > 480) {
 				document.getElementById('buttons-group').classList.remove('btn-group-vertical');
 				document.getElementById('buttons-group').classList.add('btn-group');
 			}

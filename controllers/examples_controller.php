@@ -12,82 +12,81 @@
 class examples_controller
 {
 	/** Method to call 'fontawesome.php' view */
-    public function icons()
-    {
-		$loader = new retriever( 'view_type' );	
-		$loader->include_file( 'icons.php' );
-		$loader->include_data([ 
-			'current_file' => $loader->file	
-		  ]);
-		$loader->render_view();
-    }
+	public function icons()
+	{
+		$view = new retriever('view');
+		$view->set_file('icons.php');
+		$view->set_data([
+			'current_file' => $view->file
+		]);
+		$view->render();
+	}
 
-    /** Method to call 'content.php' view */
+	/** Method to call 'content.php' view */
 	public function content()
-    {
-		$loader = new retriever( 'view_type' );	
-		$loader->include_file( 'content.php' );
-		$loader->include_data([ 
-			'current_file' => $loader->file	
-		  ]);
-		$loader->render_view();
-    }
+	{
+		$view = new retriever('view');
+		$view->set_file('content.php');
+		$view->set_data([
+			'current_file' => $view->file
+		]);
+		$view->render();
+	}
 
-    /** Method to call 'components.php' view */
-    public function components()
-    {
-		$loader = new retriever( 'view_type' );	
-		$loader->include_file( 'components.php' );
-		$loader->include_data([ 
-			'current_file' => $loader->file	
-		  ]);
-		$loader->render_view();
-    }
+	/** Method to call 'components.php' view */
+	public function components()
+	{
+		$view = new retriever('view');
+		$view->set_file('components.php');
+		$view->set_data([
+			'current_file' => $view->file
+		]);
+		$view->render();
+	}
 
-    /**
+	/**
 	 * Method that calls 'get.php', also 
 	 * receives data from $_GET and passes
 	 * it to the view if it's set and not
 	 * empty.
 	 * 
 	 */
-    public function get()
-    {
-		$loader = new retriever( 'view_type' );	
-		$loader->include_file( 'get.php' );
-		
+	public function get()
+	{
+		$view = new retriever('view');
+		$view->set_file('get.php');
+
 		/** Processing data */
 		$get_data = "";
-		if( isset($_GET['data']) ){
-			if( !empty($_GET['data']) ){
+		if (isset($_GET['data'])) {
+			if (!empty($_GET['data'])) {
 				$get_data = '<p><b>Received via $_GET:</b> ' . $_GET['data'] . '</p>';
 			}
 		}
 
 		/** Assigning data to view and rendering */
-		$loader->include_data([ 
+		$view->set_data([
 			'get_data'  => $get_data,
 			'get_action'  => DOMAIN . '/examples/get',
-			'current_file' => $loader->file	
-			]);
-		$loader->render_view();
+			'current_file' => $view->file
+		]);
+		$view->render();
 	}
-	
-    /** Method to call 'page.php' view, including a model method. */
-    public function page()
-    {
-		/** 1.- Loading a model (it includes the model file and instantiates it). */
-    	$loader = new retriever( 'model_type' );
-		$loader->include_file( 'examples_model.php' );
-		$model = $loader->load_model();
 
-    	/** 2.- Loading a view (it saves the file to be rendered). */
-		$loader = new retriever( 'view_type' );	
-		$loader->include_file( 'page.php' ); 
+	/** Method to call 'page.php' view, including a model method. */
+	public function page()
+	{
+		/** 1.- Loading a model (it includes the model file and instantiates it). */
+		$model = new retriever('model');
+		$model->set_file('examples_model.php');
+
+		/** 2.- Loading a view (it saves the file to be rendered). */
+		$view = new retriever('view');
+		$view->set_file('page.php');
 
 		/** 3.- Doing some 'logic'... delcaring some variables, etc... */
-		$current_file = $loader->file;
-		$hello_from_model = $model->page();
+		$current_file = $view->file;
+		$hello_from_model = $model->call()->page();
 		$hello_from_controller = 'Hi from the controller !!!';
 
 		/** 
@@ -95,7 +94,7 @@ class examples_controller
 		 * the view (this creates a 'context' for the view).
 		 * 
 		 */
-		$loader->include_data([
+		$view->set_data([
 			'current_file' => $current_file,
 			'hello_from_model' => $hello_from_model,
 			'hello_from_controller' => $hello_from_controller
@@ -106,171 +105,180 @@ class examples_controller
 		 * file and makes the loaded data usable in the view).
 		 * 
 		 */
-		$loader->render_view();
-    }
+		$view->render();
+	}
 
-    /**
+	/**
 	 * Method that calls 'post.php', also 
 	 * receives data from $_POST and passes
 	 * it to the view if it's set and not
 	 * empty.
 	 * 
 	 */
-    public function post()
-    {
-		$loader = new retriever( 'view_type' );	
-		$loader->include_file( 'post.php' );
+	public function post()
+	{
+		$view = new retriever('view');
+		$view->set_file('post.php');
 
 		/** Processing data */
 		$post_data = "";
-		if( isset($_POST['data']) ){
-			if( !empty($_POST['data']) ){
+		if (isset($_POST['data'])) {
+			if (!empty($_POST['data'])) {
 				$post_data = '<p><b>Received via $_POST:</b> ' . $_POST['data'] . '</p>';
 			}
 		}
 		$post_action =  DOMAIN . '/examples/post';
-		$current_file = $loader->file;
+		$current_file = $view->file;
 
 		/** Assigning data to view and rendering */
-		$loader->include_data([ 
+		$view->set_data([
 			'post_data'  => $post_data,
 			'post_action'  => $post_action,
-			'current_file' => $current_file	
-			]);
-		$loader->render_view();
-    }
+			'current_file' => $current_file
+		]);
+		$view->render();
+	}
 
-    /**
+	/**
 	 * Simple method that manages uploading/removing
 	 * and displaying files. It could be improved to
 	 * prevent malicius attacks.
 	 * 
 	 */
-    public function files()
-    {
-	    /**
+	public function files()
+	{
+		/**
 		 * Main variables of the method. Location
 		 * of the uploads and result messages of
 		 * each operation..
 		 * 
 		 */
-	   	$uploads_path = ROOT . "public_html/uploads/";
-	   	$result_message_memory = '';
-    	$result_message_image = '';
-    	$result_message_images = '';
-    	$result_message_pdf = '';
-    	$result_message_video = '';
+		$uploads_path = ROOT . "public_html/uploads/";
+		$result_message_memory = '';
+		$result_message_image = '';
+		$result_message_images = '';
+		$result_message_pdf = '';
+		$result_message_video = '';
 
-	    /**
+		/**
 		 * Check for files bigger than the ihi.php
 		 * and reports it to the user, stopping 
 		 * further operations. 
 		 * 
 		 */
-    	if( isset($_SERVER["CONTENT_LENGTH"]) ){
-    		/** 
-    		 * The problem is that trying to upload big files results in empty $_POST and $_FILES
-    		 * so, no error can be catched and reported back to the user. That's why we chenck 
-    		 * in $_SERVER.
-    		 * 
-    		 */
-		    if ($_SERVER["CONTENT_LENGTH"] > ( (int)ini_get('post_max_size') * 1024 * 1024) ){
-		        $result_message_memory = 'ERROR: Files are too big, try smaller files.';
-		    }
+		if (isset($_SERVER["CONTENT_LENGTH"])) {
+			/** 
+			 * The problem is that trying to upload big files results in empty $_POST and $_FILES
+			 * so, no error can be catched and reported back to the user. That's why we chenck 
+			 * in $_SERVER.
+			 * 
+			 */
+			if ($_SERVER["CONTENT_LENGTH"] > ((int)ini_get('post_max_size') * 1024 * 1024)) {
+				$result_message_memory = 'ERROR: Files are too big, try smaller files.';
+			}
 		}
 
 		/** Uploading only ONE image */
-		if( isset($_POST['submit_image']) ) {
-			if( isset($_FILES['image']) && $_FILES['image']['size'] != 0 ) {
-				
+		if (isset($_POST['submit_image'])) {
+			if (isset($_FILES['image']) && $_FILES['image']['size'] != 0) {
+
 				$error_check = [];
 
 				/** Checking lenght of the name, 80 chars allowed */
-				if( strlen($_FILES['image']['name']) > 80 ){
+				if (strlen($_FILES['image']['name']) > 80) {
 					$error_check[] = 'Filename is too long.';
 				}
 
 				/** Checking type of file */
-				$allowed_types = array( 'image/jpeg', 'image/png' );
+				$allowed_types = array('image/jpeg', 'image/png');
 				$detected_type = mime_content_type($_FILES['image']['tmp_name']);
-				if( !in_array( $detected_type, $allowed_types ) ){
+				if (!in_array($detected_type, $allowed_types)) {
 					$error_check[] = 'Not allowed image format.';
 				}
 
 				/** Checking that file has only one suffix, no more: file.php.png ... */
-				if( substr_count($_FILES['image']['name'], '.') > 1 ) {
+				if (substr_count($_FILES['image']['name'], '.') > 1) {
 					$error_check[] = 'Not supported file format.';
 				}
 
 				/** Checking for other PHP error codes */
-				if( $_FILES['image']['error'] ) {
+				if ($_FILES['image']['error']) {
 					$error_check[] = 'Error code ' . $_FILES['image']['error'] . '.';
 				}
 
 				/** Creating a random-unique new name */
 				$original_name = explode(".", $_FILES["image"]["name"]);
 				$modified_name = uniqid() . '.' . end($original_name);
-				
+
 				/** If no errors, and file is checked for upload, then uploading the file, otherwise -> ERROR */
-				if( empty($error_check) && is_uploaded_file($_FILES['image']['tmp_name']) ){
-					move_uploaded_file( $_FILES["image"]["tmp_name"], $uploads_path . $modified_name );
-				}else{
+				if (empty($error_check) && is_uploaded_file($_FILES['image']['tmp_name'])) {
+					move_uploaded_file($_FILES["image"]["tmp_name"], $uploads_path . $modified_name);
+				} else {
 					$result_message_image = 'ERROR: ' . implode(' ', $error_check) . ' TRY AGAIN.';
 				}
-			}else{
+			} else {
 				$result_message_image = 'No file selected.';
 			}
 		}
 
 		/** Uploading TWO or MORE images */
-		if( isset($_POST['submit_images']) ) {
+		if (isset($_POST['submit_images'])) {
 
 			/** Counting the number of files that will be uploaded */
 			$total_images = count(array_filter($_FILES['images']['name']));
 
 			/** Checking if there is data in $_FILES and if there are files to upload, then loading them */
-			if( isset($_FILES['images']) && $total_images != 0 ) {
+			if (isset($_FILES['images']) && $total_images != 0) {
 
 				/** Variables to store errors and allowed filetypes before looping */
 				$errors_check = [];
-				$allowed_types = array( 'image/jpeg', 'image/png' );
+				$allowed_types = array('image/jpeg', 'image/png');
 
 				/** Loop to check each file and store possible errors */
-				for( $i = 0; $i < $total_images; $i++ ){
+				for ($i = 0; $i < $total_images; $i++) {
 
 					/** 1.- Checking name lenght */
-					if( strlen($_FILES['images']['name'][$i]) > 80 ){
+					if (strlen($_FILES['images']['name'][$i]) > 80) {
 						$errors_check[$i][] = 'Filename is too long.';
-					}else{ $errors_check[$i][] = ''; }
+					} else {
+						$errors_check[$i][] = '';
+					}
 
 					/** 2.- Checking the file type */
 					$detected_type = mime_content_type($_FILES['images']['tmp_name'][$i]);
-					if( !in_array( $detected_type, $allowed_types ) ){
+					if (!in_array($detected_type, $allowed_types)) {
 						$errors_check[$i][] = 'Not allowed image format.';
-					}else{ $errors_check[$i][] = ''; }
+					} else {
+						$errors_check[$i][] = '';
+					}
 
 					/** 3.- Checking if the pointed file does not have this -> file.php.jpg ... */
-					if( substr_count($_FILES['images']['name'][$i], '.') > 1 ){
+					if (substr_count($_FILES['images']['name'][$i], '.') > 1) {
 						$errors_check[$i][] = 'Not supported file format.';
-					}else{ $errors_check[$i][] = ''; }
+					} else {
+						$errors_check[$i][] = '';
+					}
 
 					/** 4.- Checking if files are set to be uploaded by the user */
-					if( !is_uploaded_file($_FILES['images']['tmp_name'][$i]) ){
-						$errors_check[$i][] = 'Image can not be uploaded' . '.'; 
-					}else{ $errors_check[$i][] = ''; }
+					if (!is_uploaded_file($_FILES['images']['tmp_name'][$i])) {
+						$errors_check[$i][] = 'Image can not be uploaded' . '.';
+					} else {
+						$errors_check[$i][] = '';
+					}
 
 					/** 5.- Checking if there are no other associated errors with the upload */
-					if( $_FILES['images']['error'][$i] ){
+					if ($_FILES['images']['error'][$i]) {
 						$errors_check[$i][] = 'Error code ' . $_FILES['images']['error'][$i] . '.';
-					}else{ $errors_check[$i][] = ''; }
-
+					} else {
+						$errors_check[$i][] = '';
+					}
 				}
 
 				/** Empty string variable to saver errors later on */
 				$errors_string = NULL;
 
 				/** Loop for checking if any errors where stored */
-				foreach($errors_check as $image_number => $error_check) {
+				foreach ($errors_check as $image_number => $error_check) {
 
 					/** 
 					 * Counter variable to help 'navigation' inside the 
@@ -284,12 +292,12 @@ class examples_controller
 					$bucket = NULL;
 
 					/** Loop for extracting errors  */
-					foreach($error_check as $value) {
+					foreach ($error_check as $value) {
 
 						/** If the specific key/pointer of errors is empty, 'jump' to the next */
-					    if( empty($value) ){
-					        $counter++;
-						}else{
+						if (empty($value)) {
+							$counter++;
+						} else {
 							/** If there is an error inside that key/pointer, sum up 1 to the $bucket */
 							$bucket += 1;
 						}
@@ -302,107 +310,106 @@ class examples_controller
 					 * forget that we are still operating inside a loop.
 					 *
 					 */
-					if( !empty($bucket)){
-						$errors_string .=  "ERROR uploading image " . ( $image_number + 1 ) . ": ";
+					if (!empty($bucket)) {
+						$errors_string .=  "ERROR uploading image " . ($image_number + 1) . ": ";
 					}
-					
-					foreach($error_check as $value){
+
+					foreach ($error_check as $value) {
 						/** Having errors, now we can concat the error to the string of errors  */
-						if( !empty($value) ) {
+						if (!empty($value)) {
 							$errors_string .=  $value . " ";
 						}
 					}
 				}
 
 				/** Uploading all images if none of the had errors  */
-				if ( $errors_string === NULL ) {
-					
-					for( $i = 0; $i < $total_images; $i++ ){
+				if ($errors_string === NULL) {
+
+					for ($i = 0; $i < $total_images; $i++) {
 						/** Altering the name for each file  */
 						$original_name = explode(".", $_FILES["images"]["name"][$i]);
 						$modified_name = uniqid() . '.' . end($original_name);
 
 						/** Uploading each file */
-						move_uploaded_file( $_FILES["images"]["tmp_name"][$i], $uploads_path . $modified_name );
+						move_uploaded_file($_FILES["images"]["tmp_name"][$i], $uploads_path . $modified_name);
 					}
-
-				}else{
+				} else {
 					$result_message_images = $errors_string . ' TRY AGAIN.';
 				}
-			}else{
+			} else {
 				$result_message_images = 'No files selected.';
 			}
 		}
 
 		/** Uploading a PDF document */
-		if( isset($_POST['submit_pdf']) ) {
-			if( isset($_FILES['pdf']) && $_FILES['pdf']['size'] != 0 ) {
+		if (isset($_POST['submit_pdf'])) {
+			if (isset($_FILES['pdf']) && $_FILES['pdf']['size'] != 0) {
 
 				$error_check = [];
 
 				/** Checking lenght of the name, 80 chars allowed */
-				if( strlen($_FILES['pdf']['name']) > 80 ){
+				if (strlen($_FILES['pdf']['name']) > 80) {
 					$error_check[] = 'Filename is too long.';
 				}
 
 				/** Checking type of file */
-				$allowed_types = array( 'application/pdf' );
+				$allowed_types = array('application/pdf');
 				$detected_type = mime_content_type($_FILES['pdf']['tmp_name']);
-				if( !in_array( $detected_type, $allowed_types ) ){
+				if (!in_array($detected_type, $allowed_types)) {
 					$error_check[] = 'Not allowed document format.';
 				}
 
 				/** Checking that file has only one suffix, no more: file.php.pdf ... */
-				if( substr_count($_FILES['pdf']['name'], '.') > 1 ) {
+				if (substr_count($_FILES['pdf']['name'], '.') > 1) {
 					$error_check[] = 'Not supported file format.';
 				}
 
 				/** Checking for other PHP error codes */
-				if( $_FILES['pdf']['error'] ) {
+				if ($_FILES['pdf']['error']) {
 					$error_check[] = 'Error code ' . $_FILES['pdf']['error'] . '.';
 				}
 
 				/** Creating a random-unique new name */
 				$original_name = explode(".", $_FILES["pdf"]["name"]);
 				$modified_name = uniqid() . '.' . end($original_name);
-				
+
 				/** If no errors, and file is checked for upload, then uploading the file, otherwise -> ERROR */
-				if( empty($error_check) && is_uploaded_file($_FILES['pdf']['tmp_name']) ){
-					move_uploaded_file( $_FILES["pdf"]["tmp_name"], $uploads_path . $modified_name );
-				}else{
+				if (empty($error_check) && is_uploaded_file($_FILES['pdf']['tmp_name'])) {
+					move_uploaded_file($_FILES["pdf"]["tmp_name"], $uploads_path . $modified_name);
+				} else {
 					$result_message_pdf = 'ERROR: ' . implode(' ', $error_check) . ' TRY AGAIN.';
 				}
-			}else{
+			} else {
 				$result_message_pdf = 'No files selected.';
 			}
 		}
 
 		/** Uploading a VIDEO */
-		if( isset($_POST['submit_video']) ) {
+		if (isset($_POST['submit_video'])) {
 
-			if( isset($_FILES['video']) && $_FILES['video']['size'] != 0 ) {
+			if (isset($_FILES['video']) && $_FILES['video']['size'] != 0) {
 
 				$error_check = [];
-				
+
 				/** Checking lenght of the name, 80 chars allowed */
-				if( strlen($_FILES['video']['name']) > 80 ){
+				if (strlen($_FILES['video']['name']) > 80) {
 					$error_check[] = 'Filename is too long.';
 				}
 
 				/** Checking type of file */
-				$allowed_types = array( 'video/mp4', 'video/mov', 'video/webm', 'video/avi' );
+				$allowed_types = array('video/mp4', 'video/mov', 'video/webm', 'video/avi');
 				$detected_type = mime_content_type($_FILES['video']['tmp_name']);
-				if( !in_array( $detected_type, $allowed_types ) ){
+				if (!in_array($detected_type, $allowed_types)) {
 					$error_check[] = 'Not allowed document format.';
 				}
 
 				/** Checking that file has only one suffix, no more: file.php.mp4 ... */
-				if( substr_count($_FILES['video']['name'], '.') > 1 ) {
+				if (substr_count($_FILES['video']['name'], '.') > 1) {
 					$error_check[] = 'Not supported file format.';
 				}
 
 				/** Checking for other PHP error codes */
-				if( $_FILES['video']['error'] ) {
+				if ($_FILES['video']['error']) {
 					$error_check[] = 'Error code ' . $_FILES['video']['error'] . '.';
 				}
 
@@ -411,12 +418,12 @@ class examples_controller
 				$modified_name = uniqid() . '.' . end($original_name);
 
 				/** If no errors, and file is checked for upload, then uploading the file, otherwise -> ERROR */
-				if( empty($error_check) && is_uploaded_file($_FILES['video']['tmp_name']) ){
-					move_uploaded_file( $_FILES["video"]["tmp_name"], $uploads_path . $modified_name );
-				}else{
+				if (empty($error_check) && is_uploaded_file($_FILES['video']['tmp_name'])) {
+					move_uploaded_file($_FILES["video"]["tmp_name"], $uploads_path . $modified_name);
+				} else {
 					$result_message_video = 'ERROR: ' . implode(' ', $error_check) . ' TRY AGAIN.';
 				}
-			}else{
+			} else {
 				$result_message_video = 'No file selected.';
 			}
 		}
@@ -453,17 +460,17 @@ class examples_controller
 		";
 
 		/** Catching through URL when a file id has been set, then removing it with unlink()! */
-		if( isset($_GET['remove_filename']) && !empty($_GET['remove_filename'])) {
+		if (isset($_GET['remove_filename']) && !empty($_GET['remove_filename'])) {
 			$file_location = ROOT . 'public_html/uploads/' . $_GET['remove_filename'];
 			unlink($file_location);
 			header("Location: " . DOMAIN . '/examples/files?' . 'deleted=' . $_GET['remove_filename']);
 		}
 
 		/** Setting up 'files.php' as view and storing variables for later use in view */
-		$loader = new retriever( 'view_type' );	
-		$loader->include_file( 'files.php' );
-		$loader->include_data([ 
-			'current_file' => $loader->file,	
+		$view = new retriever('view');
+		$view->set_file('files.php');
+		$view->set_data([
+			'current_file' => $view->file,
 			'files_action' => DOMAIN . '/examples/files',
 			'result_message_memory' => $result_message_memory,
 			'result_message_image' => $result_message_image,
@@ -471,76 +478,76 @@ class examples_controller
 			'result_message_pdf' => $result_message_pdf,
 			'result_message_video' => $result_message_video,
 			'files_table' => $files_table
-			]);
+		]);
 
 		/** Rendering view */
-		$loader->render_view();
-    }
+		$view->render();
+	}
 
-    /** Method to set and unset $_SESSION variables */
-    public function session()
-    {
-    	session_start();
-    	/** Checking if the user has sent via URL the command to store a session variable */
-    	if( isset($_GET['session']) && $_GET['session'] == 1 ){
-    		$_SESSION['data'] = "<p><b>Hey! I'm a stored session variable!</b></p>";
-    	}
-    	/** Checking if the user has sent via URL the command to unset the session variable */
-    	if( isset($_GET['session']) && $_GET['session'] == 0 ){
-    		unset($_SESSION['data']);
-    	}
+	/** Method to set and unset $_SESSION variables */
+	public function session()
+	{
+		session_start();
+		/** Checking if the user has sent via URL the command to store a session variable */
+		if (isset($_GET['session']) && $_GET['session'] == 1) {
+			$_SESSION['data'] = "<p><b>Hey! I'm a stored session variable!</b></p>";
+		}
+		/** Checking if the user has sent via URL the command to unset the session variable */
+		if (isset($_GET['session']) && $_GET['session'] == 0) {
+			unset($_SESSION['data']);
+		}
 
-    	/** Loading a view 'session.php' */
-		$loader = new retriever( 'view_type' );	
-		$loader->include_file( 'session.php' );
+		/** Loading a view 'session.php' */
+		$view = new retriever('view');
+		$view->set_file('session.php');
 
 		/** Assigning $_SESSION to a variable if it is set */
-		if ( isset($_SESSION['data']) ){
-    		$session = $_SESSION['data'];
-    	}else{
-    		$session = '';
-    	}
+		if (isset($_SESSION['data'])) {
+			$session = $_SESSION['data'];
+		} else {
+			$session = '';
+		}
 
-    	/** Adding data to view and rendering it */
-		$loader->include_data([ 
+		/** Adding data to view and rendering it */
+		$view->set_data([
 			'session_action' => DOMAIN . '/examples/session',
-			'current_file' => $loader->file,
+			'current_file' => $view->file,
 			'session_data' => $session
-			]);
-		$loader->render_view();
-    }
+		]);
+		$view->render();
+	}
 
-    /** Method assign data to a view 'cookie.php' and render it */
-    public function cookie()
-    {
-	session_start();
-    	/** Assigning $_COOKIE to a varaible if it is set */
-		if( isset($_COOKIE['data']) ){
+	/** Method assign data to a view 'cookie.php' and render it */
+	public function cookie()
+	{
+		session_start();
+		/** Assigning $_COOKIE to a varaible if it is set */
+		if (isset($_COOKIE['data'])) {
 			$cookie = $_COOKIE['data'];
 		} else {
 			$cookie =  "<p>No data saved as cookie.</p>";
 		}
 
 		/** Creating a loader for a view file 'cookie.php' */
-		$loader = new retriever( 'view_type' );	
-		$loader->include_file( 'cookie.php' );
+		$view = new retriever('view');
+		$view->set_file('cookie.php');
 
 		/** Assigning data to the view and rendering it */
-		$loader->include_data([ 
+		$view->set_data([
 			'set_cookie' => DOMAIN . '/examples/set_cookie',
 			'remove_cookie' => DOMAIN . '/examples/remove_cookie',
-			'current_file' => $loader->file,
+			'current_file' => $view->file,
 			'cookie_data' => $cookie
-			]);
-		$loader->render_view();
-    }
+		]);
+		$view->render();
+	}
 
-    /** Operations to set a cookie */
-    public function set_cookie()
-    {
-	session_start();
-    	/** Creating the string that will be stored in $_COOKIE */
-    	$cookie_value = "<p><b>Hey! I'm a stored cookie variable!</b></p>";
+	/** Operations to set a cookie */
+	public function set_cookie()
+	{
+		session_start();
+		/** Creating the string that will be stored in $_COOKIE */
+		$cookie_value = "<p><b>Hey! I'm a stored cookie variable!</b></p>";
 
 		/** 
 		 * Setting up $_COOKIE. Values for cookies:
@@ -585,88 +592,86 @@ class examples_controller
 		 *     third party websites.
 		 *
 		 */
-		setcookie( 'data', $cookie_value, [
-		    'expires' => ( time() + (60*60*24*365) ),
-		    'path' => '/examples/cookie',
-		    'domain' => false,
-		    'secure' => false,
-		    'httponly' => true,
-		    'samesite' => 'Strict',
+		setcookie('data', $cookie_value, [
+			'expires' => (time() + (60 * 60 * 24 * 365)),
+			'path' => '/examples/cookie',
+			'domain' => false,
+			'secure' => false,
+			'httponly' => true,
+			'samesite' => 'Strict',
 		]);
 
 		/** Redirects to cookie when everything is finished */
 		header("Location: " . DOMAIN . "/examples/cookie");
-    }
+	}
 
-    /** Operations to unset a cookie */
-    public function remove_cookie()
-    {
-	session_start();
-    	/** Creating the string that will be stored in $_COOKIE */
-    	$cookie_value = "";
-	    
-		setcookie( 'data', $cookie_value, [
-		    'expires' => ( time() - (60*60*24*365) ),
-		    'path' => '/examples/cookie',
-		    'domain' => false,
-		    'secure' => false,
-		    'httponly' => true,
-		    'samesite' => 'Strict',
+	/** Operations to unset a cookie */
+	public function remove_cookie()
+	{
+		session_start();
+		/** Creating the string that will be stored in $_COOKIE */
+		$cookie_value = "";
+
+		setcookie('data', $cookie_value, [
+			'expires' => (time() - (60 * 60 * 24 * 365)),
+			'path' => '/examples/cookie',
+			'domain' => false,
+			'secure' => false,
+			'httponly' => true,
+			'samesite' => 'Strict',
 		]);
 		header("Location: " . DOMAIN . "/examples/cookie");
-    }
+	}
 
-    /** Method to create a new record in database */
+	/** Method to create a new record in database */
 	public function create()
 	{
 		/** Instantiating the retriever object to load and also instantiate a the MODEL. */
-		$loader = new retriever( 'model_type' );
-		$loader->include_file( 'examples_model.php' );
-		$db_action = $loader->load_model();
+		$model = new retriever('model');
+		$model->set_file('examples_model.php');
 
 		/** Getting data from form and sending it to model to CREATE a new entry. */
-		if( isset($_POST['title']) && isset($_POST['description'])  ){
-			if( !empty($_POST['title']) && !empty($_POST['description'])  ) {
+		if (isset($_POST['title']) && isset($_POST['description'])) {
+			if (!empty($_POST['title']) && !empty($_POST['description'])) {
 				$title = $_POST['title'];
 				$description = $_POST['description'];
-				$db_action->create( $title, $description );
+				$model->call()->create($title, $description);
 				header('Location: ' . DOMAIN . '/examples/read');
-			}else{
+			} else {
 				header('Location: ' . DOMAIN . '/examples/read');
 			}
-		}else{
+		} else {
 			header('Location: ' . DOMAIN . '/examples/read');
 		}
 	}
-	
+
 	/** Method to read records from database and render a view 'database.php' */
 	public function read()
-	{   
+	{
 		/** Instantiating the retriever object to load and also instantiate a the MODEL. */
-		$loader = new retriever( 'model_type' );
-		$loader->include_file( 'examples_model.php' );
-		$db_action = $loader->load_model();
+		$model = new retriever('model');
+		$model->set_file('examples_model.php');
 
 		/** CREATE Part: The form for CREATING each entry, is static and its placed in the view! */
 		$create_action =  DOMAIN . '/examples/create';
 
 		/** READ Part: Creating the forms with each entry, for the READ section. */
 		$read_section = NULL;
-		$fetched_array = $db_action->read();
-		foreach( $fetched_array as $value) {
+		$fetched_array = $model->call()->read();
+		foreach ($fetched_array as $value) {
 			$read_section .= "
 				<b>" . $value['title'] . "</b>
 				<p>" . $value['description'] . "</p>
 			";
 		}
-		if( $read_section == NULL ) {
+		if ($read_section == NULL) {
 			$read_section = "<p>No data to read yet.</p>";
 		}
 
 		/** UPDATE Part: Creating forms with each entry, for the UPDATE section. */
 		$update_forms = NULL;
-		$fetched_array = $db_action->read();
-		foreach( $fetched_array as $value) {
+		$fetched_array = $model->call()->read();
+		foreach ($fetched_array as $value) {
 			$update_forms .= "
 				<form method='POST' action='" . DOMAIN . "/examples/update'>
 					<input name='id' type='text' value='" . $value['id'] . "' hidden='true'>
@@ -678,14 +683,14 @@ class examples_controller
 				</form>
 			";
 		}
-		if( $update_forms == NULL ) {
+		if ($update_forms == NULL) {
 			$update_forms = "<p>No data to update yet.</p>";
 		}
 
 		/** DELTE Part: Creating forms with each entry, for the DELETE section. */
 		$delete_forms = NULL;
-		$fetched_array = $db_action->read();
-		foreach( $fetched_array as $value) {
+		$fetched_array = $model->call()->read();
+		foreach ($fetched_array as $value) {
 			$delete_forms .= "
 				<form method='POST' action='" . DOMAIN . "/examples/delete'>
 					<input name='id' type='text' value='" . $value['id'] . "' hidden='true'>
@@ -695,46 +700,45 @@ class examples_controller
 				</form>
 			";
 		}
-		if( $delete_forms == NULL ) {
+		if ($delete_forms == NULL) {
 			$delete_forms = "<p>No data to delete yet.</p>";
 		}
 
 		/** Instantiating the retriever in a new object to load a new VIEW. */
-		$loader = new retriever( 'view_type' );
-		$loader->include_file( 'database.php' );
+		$view = new retriever('view');
+		$view->set_file('database.php');
 
 		/** Accesing the file attribute of retriever in order to show it in view. */
-		$current_file = $loader->file;
+		$current_file = $view->file;
 
 		/** 'Loading' data in VIEW and rendering it! */
-		$loader->include_data([ 
+		$view->set_data([
 			'current_file'  => $current_file,
 			'create_action' => $create_action,
 			'read_section'  => $read_section,
 			'update_forms'  => $update_forms,
 			'delete_forms'  => $delete_forms
-			]);
-		$loader->render_view();
+		]);
+		$view->render();
 	}
 
 	/** Method update a record in database */
 	public function update()
 	{
 		/** Instantiating the retriever to load and also instantiate a the MODEL. */
-		$loader = new retriever( 'model_type' );
-		$loader->include_file( 'examples_model.php' );
-		$db_action = $loader->load_model();
+		$model = new retriever('model');
+		$model->set_file('examples_model.php');
 
 		/** Getting data from form and sending it to the model to CREATE a new entry. */
-		if( isset($_POST['id']) && isset($_POST['title']) && isset($_POST['description'])  ){
-			if( !empty($_POST['id']) && !empty($_POST['title']) && !empty($_POST['description'])  ) {
+		if (isset($_POST['id']) && isset($_POST['title']) && isset($_POST['description'])) {
+			if (!empty($_POST['id']) && !empty($_POST['title']) && !empty($_POST['description'])) {
 				$id = $_POST['id'];
 				$title = $_POST['title'];
 				$description = $_POST['description'];
-				$db_action->update( $id, $title, $description );
+				$model->call()->update($id, $title, $description);
 				header('Location: ' . DOMAIN . '/examples/read');
 			}
-		}else{
+		} else {
 			header('Location: ' . DOMAIN . '/examples/read');
 		}
 	}
@@ -743,21 +747,19 @@ class examples_controller
 	public function delete()
 	{
 		/** Instantiating the retriever to load and also instantiate a the MODEL. */
-		$loader = new retriever( 'model_type' );
-		$loader->include_file( 'examples_model.php' );
-		$db_action = $loader->load_model();
+		$model = new retriever('model');
+		$model->set_file('examples_model.php');
 
 		/** Getting data from forms and sending it to model to DELETE selected entry. */
-		if( isset($_POST['id']) ){
-			if( !empty($_POST['id']) ) {
+		if (isset($_POST['id'])) {
+			if (!empty($_POST['id'])) {
 				$id = $_POST['id'];
-				$db_action->delete( $id );
+				$model->call()->delete($id);
 				header('Location: ' . DOMAIN . '/examples/read');
 			}
-		}else{
+		} else {
 			header('Location: ' . DOMAIN . '/examples/read');
 		}
 	}
 }
-
-?>
+ 

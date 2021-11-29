@@ -51,7 +51,7 @@ class configuration
 	 * 
 	 */
 	const HSTS = '63113904';
-	
+
 	/** 
 	 * Default X-Frame-Options for 'iframes'. There are
 	 * two posibilities for this response header:
@@ -62,5 +62,3 @@ class configuration
 	 */
 	const XFO = 'SAMEORIGIN';
 }
-
-?>

@@ -1,13 +1,13 @@
-### PHP-RETRIEVER | SIMPLE MVC FRONT CONTROLLER PHP MINI-FRAMEWORK
+### PHP-RETRIEVER | PHP RETRIEVER - SIMPLE MVC FRONT CONTROLLER MINI FRAMEWORK
 
 Contributors: Amaro Guerra Rocha
 Requires at least: PHP 7.3+
-Version: 0.1
+Version: 0.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 Source: https://github.com/amguecha/php-retriever
 
-### 0. FILES MANIFEST.
+### 0. FILES MANIFEST. 
 
 php-retriever-main
 |

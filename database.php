@@ -2,7 +2,7 @@
 
 /**
  * Database connection. It contains various
- * methods to handle DB operations.
+ * basic methods to handle DB operations.
  * 
  * @param: $host      -> Host name for connection.
  * @param: $user      -> Username for connection.
@@ -34,7 +34,7 @@ class database
     private $host;
     private $user;
     private $pass;
-    private $datb;   
+    private $datb;
     private $conn;
     private $statement;
     private $conn_error;
@@ -53,31 +53,24 @@ class database
         $options = array(
             PDO::ATTR_PERSISTENT => true,
             PDO::ATTR_ERRMODE    => PDO::ERRMODE_EXCEPTION
-            );
-        try{
-
+        );
+        try {
             /** Creating the PDO connection. */
             $this->conn = new PDO($dsn, $this->user, $this->pass, $options);
-
-        }
-        catch( PDOException $e ){
-
+        } catch (PDOException $e) {
             /** Message, in case of error. */
             $this->conn_error = $e->getMessage();
-            trigger_error( $this->conn_error );
-
+            trigger_error($this->conn_error);
         }
     }
 
-    public function query( $query )
+    public function query($query)
     {
-
         /** Preparing query and saving it as an attribute. */
         $this->statement = $this->conn->prepare($query);
-
     }
 
-    public function bind( $param, $value, $type = NULL )
+    public function bind($param, $value, $type = NULL)
     {
         /**
          * Adding parameters to the query. It sets the 
@@ -89,8 +82,8 @@ class database
          * In this method ...bind(':name', $value )
          * 
          */
-        if( is_null($type) ){
-            switch( TRUE ){
+        if (is_null($type)) {
+            switch (TRUE) {
                 case is_int($value):
                     $type = PDO::PARAM_INT;
                     break;
@@ -104,22 +97,18 @@ class database
                     $type = PDO::PARAM_STR;
             }
         }
-
-        $this->statement->bindValue( $param, $value, $type );
+        $this->statement->bindValue($param, $value, $type);
     }
 
     public function execute()
     {
-
-        /** Executing the query. */
-        try{
+        try {
+            /** Executing the query. */
             return $this->statement->execute();
-        }
-        catch( PDOException $e ){
+        } catch (PDOException $e) {
             $this->query_error = $e->getMessage();
-            trigger_error( $this->query_error );
+            trigger_error($this->query_error);
         }
-
     }
 
     /** It prepares the DB data to be extracted as an associative array. */
@@ -184,5 +173,3 @@ class database
         return $this->conn->commit();
     }
 }
-
-?>

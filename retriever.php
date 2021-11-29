@@ -1,23 +1,23 @@
 <?php
 
 /**
- * This class generates a 'loader' or 'retriever' 
- * object to use view files and model classes inside
- * CONTROLLERS. It's kind of a wrapper/extender for 
- * 'include' and 'new class' operations.
+ * This class generates VIEW/MODEL objects, to be used 
+ * inside CONTROLLERS. It's like a wrapper or extended 
+ * function of 'include' and 'new class'.
  * 
- * @property: $type -> It stores the type of operation
- *            that will be done by the object.                 
- * @property: $file -> It stores the filename that will 
- *            be used to perform operations.
- * @property: $data -> It stores data that will be passed 
- *            to view (creating a context/scope for view).
+ * @property: $type -> It stores the type of object, 
+ *            it can be set to VIEW or MODEL.           
+ * @property: $file -> It stores the FILENAME of the 
+ *            view or model to be created.
+ * @property: $data -> It stores in an array the DATASET 
+ *            that will be used outside the controller, 
+ *            either in the view or the model. 
  * 
- * @method: __construct( $set_type = NULL ) -> Line 36
- * @method: include_file( $filename )       -> Line 52
- * @method: include_data( $dataset = [] )   -> Line 95
- * @method: load_model( $params = NULL )    -> Line 112
- * @method: render_view()                   -> Line 130
+ * @method: __construct( $set_type = NULL ) -> Line 35 
+ * @method: set_file( $filename )           -> Line 49 
+ * @method: set_data( $dataset = [] )       -> Line 87 
+ * @method: call()                          -> Line 100 
+ * @method: render()                        -> Line 130 
  *
  */
 class retriever
@@ -27,13 +27,12 @@ class retriever
 	public $data;
 
 	/** 
-	 * It sets the type of operations for later logic.
+	 * It sets the type of object to be instantiated.
 	 * 
-	 * @param: $set_type -> Options: 'model_type'
-	 *         or 'view_type'. No more!! 
+	 * @param: $set_type -> Options: 'model' or 'view'.
 	 * 
 	 */
-	public function __construct( $set_type = NULL )
+	public function __construct($set_type)
 	{
 		$this->type = $set_type;
 		$this->file = NULL;
@@ -41,94 +40,96 @@ class retriever
 	}
 
 	/** 
-	 * It checks if the file to be loaded exists 
-	 * in its directory. For views, it only stores the view
-	 * filename. For models, it stores the filename and
-	 * also does an 'include'.
+	 * Setting the model/view FILE. It makes sure that the file exists
+	 * and also clears the filesystem cache after the check.
 	 * 
-	 * @param: $filename -> 'filename.php'
+	 * @param: $filename -> 'filename_model.php' or 'filename_view.php'.
 	 * 
 	 */
-	public function include_file( $filename )
+	public function set_file($filename)
 	{
-		/** Checking if the model has been loaded properly, the file exists, no typos, etc.. */
-		if( $this->type == 'model_type' ){
-			$this->file = $filename;
-			$model_path = MODELS . $filename;
-	        if( file_exists($model_path) ){
-	        	include( $model_path );
-	        }else{
-				http_response_code(404);
-				trigger_error( 'There was a problem loading the intended model. Message generated ' );
+		/** Checking the assigned file for MODELS. */
+		if ($this->type === 'model') {
+			if (file_exists(MODELS . $filename)) {
+				$this->file = $filename;
+				clearstatcache();
+			} else {
+				http_response_code(500);
+				trigger_error('Incorrect model filename (' . MODELS . $filename . ')');
 				exit();
-	        }
+			}
+			/** Checking the assigned file for VIEWS. */
+		} elseif ($this->type === 'view') {
+			if (file_exists(VIEWS . $filename)) {
+				$this->file = $filename;
+				clearstatcache();
+			} else {
+				http_response_code(404);
+				trigger_error('Incorrect view filename (' . VIEWS . $filename . ')');
+				exit();
+			}
+		}
+	}
 
-	    /** Checking if the view has been loaded properly, the file exists, no typos, etc.. */
-		}elseif( $this->type == 'view_type' ){
-			$view_path = VIEWS . $filename;
-	        if( file_exists($view_path) ){
-	        	$this->file = $filename;
-	        }else{
-				http_response_code(404);
-				trigger_error( 'There was a problem loading the intended view. Message generated ' );
+	/** 
+	 * It sets an OPTIONAL DATA ARRAY, which can be then used in the view 
+	 * or model. For views, only associative arrays are allowed. For models, 
+	 * any type of array can be used.
+	 * 
+	 * @param: $data -> ** To expose data to be printed in VIEWS, setting data in controllers: 
+	 *         [ 'varname' => $var, 'varname1' => $var1, ... ].
+	 *         Accessing data in views: <?= $varname => ... 
+	 *         ** To pass data and use it in MODELS classes, setting data in controllers:
+	 * 		   [ $var1, $var2, $var3, ... ].
+	 * 		   Accessing data in models: $var1 = $arrayname[0], var2 = ...[1] ...
+	 * 
+	 */
+	public function set_data($dataset = [])
+	{
+		$this->data = $dataset;
+	}
+
+	/** 
+	 * Way of CALLING the instantiated MODEL METHODS inside the controller. Only
+	 * instantiated MODEL objects can use this method.
+	 * 
+	 * @param: $params -> Parameters that the selected model method, in case, needs.  
+	 *         $model->call()->the_model_method($params).
+	 * 
+	 */
+	public function call()
+	{
+		if ($this->type === 'model') {
+			/** 
+			 * Checking if the class exists inside the model file. Removing .php 
+			 * from the end, also including and instantiating the model object.
+			 */
+			$class = substr(strval($this->file), 0, -4);
+			if (class_exists($class)) {
+				include_once(MODELS . $this->file);
+				return new $class($this->data);
+			} else {
+				http_response_code(500);
+				trigger_error('Incorrect model classname (' . $class . ')');
 				exit();
-	        }
-		}else{
+			}
+		} else {
+			/** Other object types, different from 'model', will trigger an error. */
 			http_response_code(404);
-			trigger_error( 'There was a problem loading the intended view or model. Message generated ' );
+			trigger_error('This object type (' . $this->type . ') can not return model methods');
 			exit();
 		}
-
 	}
 
 	/** 
-	 * It saves an optional data array (associative), which will be then 
-	 * used in the view file. Only for VIEWS, models do not accept data.
-	 * 
-	 * @param: $data -> It's an associative array: [ 'varname' => $var, 
-	 * 		   'varname1' => $var1, ... ] In views: <?= $varname => ...
+	 * Way of RENDERING the VIEW, and in case, assigning variables passed from
+	 * the controller to the new view scope. Only instantiated VIEW objects can use 
+	 * this method.
 	 * 
 	 */
-	public function include_data( $dataset = [] )
+	public function render()
 	{
-		if( $this->type == 'model_type' ){
-			trigger_error( 'Models do not accept this method. Message generated ' );
-		}elseif( $this->type = 'view_type' ) {
-			$this->data = $dataset;
-		}
-	}
-
-	/** 
-	 * It creates an object of the previous selected model.
-	 * 
-	 * @param: $params -> The parameters that the selected model, in case,  
-	 *         needs in the __constructor: ( param1, param2, ... ).
-	 * 		   Example: $object = $loader->load_model().
-	 * 
-	 */
-	public function load_model( $params = NULL )
-	{
-		if( $this->type == 'model_type' ){
-	        
-			/** Checking if the class exists. Removing .php from the end. */
-	        $class = substr( strval($this->file), 0, -4 );
-	        if( class_exists($class) ){
-	        	return new $class( $params );
-	        }else{
-	        	trigger_error( 'Model classname or filename is incorrect. Message generated ' );
-	        }
-
-		}elseif( $this->type == 'model_view' ){
-			trigger_error( 'This object can only include models. Message generated ' );
-		}
-	}
-
-	/** It 'renders' the previously loaded view. */
-	public function render_view()
-	{
-		if( $this->type == 'view_type' ){
-			$view_path = VIEWS . $this->file;
-
+		if ($this->type === 'view') {
 			/** 
 			 * ob_start() turns ON a buffer and catches all the 
 			 * executed code, keeping it from being printed 
@@ -137,24 +138,23 @@ class retriever
 			 *  
 			 */
 			ob_start();
-
 			/** 
 			 * It extracts the data array, allowing variables to 
-			 * be called as their array Key name. ( 'var' => $variable )
-			 * In views simply call: <?= $var ?> !! 
+			 * be called as their array Key Name values. 
+			 * A variable assigned in a controller as [ 'var' => $variable ], 
+			 * will be available on the view by simple calling <?= $var ?> !! 
 			 * 
 			 */
-			if( !is_null($this->data) ){
+			if (!is_null($this->data)) {
 				extract($this->data);
 			}
-			
-        	include( $view_path );
+			include_once(VIEWS . $this->file);
 			ob_end_flush();
-			
-        }else{
-        	trigger_error( 'This object was not able to render the view. Message generated ' );
-        }
+		} else {
+			/** Other object types, different from 'view', will trigger an error. */
+			http_response_code(404);
+			trigger_error('This object type (' . $this->type . ') was not able to render the view');
+			exit();
+		}
 	}
 }
-
-?>
