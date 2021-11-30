@@ -17,13 +17,19 @@
  */
 class home_model
 {
-    public function data()
+    public $var_a;
+
+    public function __construct($get_string_a)
     {
-        $string_one = 'Simple ';
-        $string_two = 'MVC Front Controller ';
-        $string_three = 'Mini Framework ';
-        $string_four = '(V.0.2)';
-        $secondary_heading = $string_one . $string_two . $string_three . $string_four;
+        $this->var_a = $get_string_a['a'];
+    }
+
+    public function data($get_string_b)
+    {
+        $string_a = $this->string_a;
+        $string_b = $get_string_b;
+        $string_c = 'Mini Framework (V.0.2)';
+        $secondary_heading = $string_a . $string_b . $string_c;
         return $secondary_heading;
     }
 
@@ -66,4 +72,3 @@ class home_model
     //     $conn->execute();
     // }
 }
-
