@@ -6,13 +6,13 @@
  * @method: data()      -> BASIC MODEL METHOD that 'manipulates' some  
  *                         strings and returns them to the controller.
  * @method: // create() -> Method (disabled) to INSERT data in a sample  
- *                         table called 'crud_table'.
+ *                         table called 'crud'.
  * @method: // read()   -> Method (disabled) to SELECT data in a sample  
- *                         table called 'crud_table'.
+ *                         table called 'crud'.
  * @method: // update() -> Method (disabled) to UPDATE data in a sample  
- *                         table called 'crud_table'.
+ *                         table called 'crud'.
  * @method: // delete() -> Method (disabled) to DELETE data in a sample  
- *                         table called 'crud_table'.
+ *                         table called 'crud'.
  * 
  */
 class home_model
@@ -30,7 +30,7 @@ class home_model
     // public function create($title, $description)
     // {
     //     $conn = new database();
-    //     $sql = "INSERT INTO crud_table VALUES( NULL, :title, :description )";
+    //     $sql = "INSERT INTO crud VALUES( NULL, :title, :description )";
     //     $conn->query($sql);
     //     $conn->bind(':title', $title);
     //     $conn->bind(':description', $description);
@@ -40,7 +40,7 @@ class home_model
     // public function read()
     // {
     //     $conn = new database();
-    //     $sql = "SELECT * FROM crud_table";
+    //     $sql = "SELECT * FROM crud";
     //     $conn->query($sql);
     //     $rows = $conn->fetch_all();
     //     return $rows;
@@ -49,7 +49,7 @@ class home_model
     // public function update($id, $title, $description)
     // {
     //     $conn = new database();
-    //     $sql = "UPDATE crud_table SET title = :title, description = :description WHERE id = :id";
+    //     $sql = "UPDATE crud SET title = :title, description = :description WHERE id = :id";
     //     $conn->query($sql);
     //     $conn->bind(':id', $id);
     //     $conn->bind(':title', $title);
@@ -60,7 +60,7 @@ class home_model
     // public function delete($id)
     // {
     //     $conn = new database();
-    //     $sql = "DELETE FROM crud_table WHERE id = :id";
+    //     $sql = "DELETE FROM crud WHERE id = :id";
     //     $conn->query($sql);
     //     $conn->bind(':id', $id);
     //     $conn->execute();
