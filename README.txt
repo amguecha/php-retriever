@@ -97,7 +97,7 @@ a) Bootstrap CSS and JS v5.1.1
 b) Bootstrap Icons v1.5.0
 
 
-### 5. LICENSE.
+### 4. LICENSE.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
