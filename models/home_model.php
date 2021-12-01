@@ -26,7 +26,7 @@ class home_model
 
     public function data($get_string_b)
     {
-        $string_a = $this->string_a;
+        $string_a = $this->var_a;
         $string_b = $get_string_b;
         $string_c = 'Mini Framework (V.0.2)';
         $secondary_heading = $string_a . $string_b . $string_c;
